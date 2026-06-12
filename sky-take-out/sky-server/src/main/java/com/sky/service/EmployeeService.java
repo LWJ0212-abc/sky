@@ -30,4 +30,6 @@ public interface EmployeeService {
      * @date 2026/6/12 19:10
      */
     PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    void startOrStop(Integer status, Long id);
 }
