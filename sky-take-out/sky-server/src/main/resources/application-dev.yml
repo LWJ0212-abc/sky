@@ -6,3 +6,10 @@ sky:
     database: sky_take_out
     username: dbroot
     password: mysql_password
+  rustfs:
+    endpoint: "http://localhost:9000"
+    access-key: "rustfsadmin"
+    secret-key: "rustfsadmin"
+    region: "sky"
+    # 💡 2. 核心修复：将 bucked 修改为标准的 bucket
+    bucket-name: "sky-data-lake"
