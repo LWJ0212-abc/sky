@@ -3,8 +3,10 @@ package com.sky.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
-public interface SetemalMapper {
+public interface SetmealMapper {
 
     /**通过category_id来获取setmeal表下与类别相关的套餐数目
      * @param id:
@@ -15,4 +17,6 @@ public interface SetemalMapper {
      */
     @Select("select count(id) from setmeal where category_id=#{id}")
     Integer countByCategoryId(Long id);
+
+
 }
