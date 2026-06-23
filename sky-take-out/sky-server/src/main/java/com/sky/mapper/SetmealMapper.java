@@ -1,5 +1,12 @@
 package com.sky.mapper;
 
+import com.github.pagehelper.Page;
+import com.sky.annotation.AutoFill;
+import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.entity.Setmeal;
+import com.sky.enumeration.OperationType;
+import com.sky.vo.SetmealVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -18,5 +25,21 @@ public interface SetmealMapper {
     @Select("select count(id) from setmeal where category_id=#{id}")
     Integer countByCategoryId(Long id);
 
+//
+//    useGeneratedKeys="true" — 告诉 MyBatis 使用数据库生成的主键
+//            keyProperty="id" — 将生成的主键回写到实体对象的 id 属性
+    @AutoFill(OperationType.INSERT)
+    void insert(Setmeal setmeal);
 
+    Page<SetmealVO> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    @Select("select * from setmeal where id=#{setmealId}")
+    Setmeal getById(Long setmealId);
+
+    @Delete("delete from setmeal where id=#{setmealId}")
+    void deleteById(Long setmealId);
+
+
+    @AutoFill(OperationType.UPDATE)
+    void update(Setmeal setmeal);
 }
