@@ -13,3 +13,8 @@ sky:
     region: "sky"
     # 💡 2. 核心修复：将 bucked 修改为标准的 bucket
     bucket-name: "sky-data-lake"
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+    database: 9
