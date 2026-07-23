@@ -6,6 +6,7 @@ import com.sky.entity.Category;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.CategoryService;
+import com.sky.utils.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+
 
 /**
  * @projectName: sky-take-out
@@ -31,7 +34,8 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
-
+    @Autowired
+    private RedisUtil redisUtil;
     /**新增分类
      * @param categoryDTO:
       * @return Result
@@ -105,6 +109,7 @@ public class CategoryController {
     public Result<String> switchStatus(@PathVariable Integer status, Long id) {
         log.info("修改分了状态=>[{},{}]",id,status);
         categoryService.switchStatus(id,status);
+        redisUtil.cleanCache("dish_*");
         return Result.success();
     }
     /** 根据类型查询分类

@@ -3,6 +3,7 @@ package com.sky.service;
 
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.entity.Setmeal;
 import com.sky.result.PageResult;
 import com.sky.vo.SetmealVO;
 
@@ -20,4 +21,13 @@ public interface SetmealService {
     void upate(SetmealDTO setmealDto);
 
     void startOrStop(Integer status, Long id);
+
+    /**
+     * @param setmeal:
+      * @return List<Setmeal>
+     * @author lwj
+     * @description  根据分类id查询所有setmeal
+     * @date 2026/6/28 01:04
+     */
+    List<Setmeal> list(Setmeal setmeal);
 }

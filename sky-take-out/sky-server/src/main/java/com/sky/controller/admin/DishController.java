@@ -6,16 +6,19 @@ import com.sky.entity.Dish;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.utils.RedisUtil;
 import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.io.ResolverUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -34,12 +37,19 @@ import java.util.UUID;
 public class DishController {
     @Autowired
     private DishService dishService;
+    @Autowired
+    private RedisTemplate redisTemplate;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @PostMapping
     @ApiOperation("新增菜品")
     public Result<String> save(@RequestBody DishDTO dishDTO) {
         log.info("新增菜品:{}", dishDTO);
         dishService.saveWithFlavor(dishDTO);
+        //清楚缓存
+        String key="dish_"+dishDTO.getCategoryId();
+        redisUtil.cleanCache(key);
         return Result.success();
     }
 
@@ -64,6 +74,7 @@ public class DishController {
     public Result<String> delete(@RequestParam List<Long> ids) {
         log.info("菜品批量删除:{}",ids);
         dishService.deleteBatch(ids);
+        redisUtil.cleanCache("dish_*");
         return Result.success();
     }
 
@@ -80,15 +91,25 @@ public class DishController {
     public Result<String>updateById(@RequestBody DishDTO dishDTO) {
         log.info("修改菜品信息{}",dishDTO);
         dishService.update(dishDTO);
+        redisUtil.cleanCache("dish_*");
         return Result.success();
     }
 
     @GetMapping("/list")
     @ApiOperation("根据分类id查询菜品")
     public Result<List<Dish>> list(Long categoryId) {
-        log.info("分类的id：{}",categoryId);
-        List<Dish> list=dishService.list(categoryId);
+        log.info("用户传来的分类的id：{}",categoryId);
+        //构建redis中的key
+        String key="dish_"+categoryId;
+        List<Dish> list= (List<Dish>) redisTemplate.opsForValue().get(key);
+        if(list!=null&&list.size()>0){
+            return Result.success(list);
+        }
+        list=dishService.list(categoryId);
+        redisTemplate.opsForValue().set(key,list);
         return Result.success(list);
     }
+
+    //清楚缓存
 
 }
