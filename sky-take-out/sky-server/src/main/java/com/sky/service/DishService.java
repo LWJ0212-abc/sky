@@ -27,5 +27,12 @@ public interface DishService {
 
     void update(DishDTO dishDTO);
 
+    /**
+     * @param categoryid:
+      * @return List<Dish>
+     * @author lwj
+     * @description 根据分类id查询菜品
+     * @date 2026/6/28 00:55
+     */
     List<Dish> list(Long categoryid);
 }

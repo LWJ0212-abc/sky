@@ -29,5 +29,12 @@ public interface CategoryService {
 
     void switchStatus(Long id,Integer status);
 
+    /**
+     * @param type:
+      * @return List<Category>
+     * @author lwj
+     * @description 查询分类，根据type查询
+     * @date 2026/6/28 00:51
+     */
     List<Category> list(Integer type);
 }
