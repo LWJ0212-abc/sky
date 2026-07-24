@@ -44,7 +44,7 @@ public class UserController {
     @PostMapping("/login")
     @ApiOperation("用户登陆")
     public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO){
-        log.info("微信用户登陆：{}",userLoginDTO.getCode());
+        log.info("微信用户登陆：{}",userLoginDTO);
 
         //微信登陆
         User user=userService.wxlogin(userLoginDTO);

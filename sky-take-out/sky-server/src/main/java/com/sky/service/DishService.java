@@ -35,4 +35,6 @@ public interface DishService {
      * @date 2026/6/28 00:55
      */
     List<Dish> list(Long categoryid);
+
+    List<DishVO> listWithFlavor(Long categoryId);
 }

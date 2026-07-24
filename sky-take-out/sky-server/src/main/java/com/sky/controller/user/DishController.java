@@ -3,6 +3,7 @@ package com.sky.controller.user;
 import com.sky.entity.Dish;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ import java.util.List;
  * @date: 2026/6/28 00:52
  * @version: 1.0
  */
-@RestController("UserDishControler")
+@RestController("UserDishController")
 @Api("用户菜品相关接口")
 @RequestMapping("/user/dish")
 @Slf4j
@@ -37,15 +38,16 @@ public class DishController {
 
     @GetMapping("/list")
     @ApiOperation("用户菜品列表")
-    public Result<List<Dish>> getDishList(Long categoryId){
+    public Result<List<DishVO>> getDishList(Long categoryId){
             log.info("用户菜品列表：{}",categoryId);
             String key="dish_"+categoryId;
             //获取dish
-            List<Dish> list= (List<Dish>) redisTemplate.opsForValue().get(key);
+            List<DishVO> list=null;
+            list= (List<DishVO>) redisTemplate.opsForValue().get(key);
             if(list!=null&&list.size()>0){
                 return Result.success(list);
             }
-            list=dishService.list(categoryId);
+            list=dishService.listWithFlavor(categoryId);
             redisTemplate.opsForValue().set(key,list);
             return Result.success(list);
     }

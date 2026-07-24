@@ -16,11 +16,13 @@ import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,6 +35,7 @@ import java.util.List;
  * @date: 2026/6/20 21:46
  * @version: 1.0
  */
+@Slf4j
 @Service
 public class DishServiceImpl implements DishService {
 
@@ -128,5 +131,22 @@ public class DishServiceImpl implements DishService {
     public List<Dish> list(Long categoryid) {
         List<Dish> list=dishMapper.list(Dish.builder().categoryId(categoryid).status(StatusConstant.ENABLE).build());
         return list;
+    }
+
+    @Override
+    public List<DishVO> listWithFlavor(Long categoryId) {
+            Dish dish=Dish.builder().categoryId(categoryId).status(StatusConstant.ENABLE).build();
+            List<Dish> dishList=dishMapper.list(dish);
+
+            List<DishVO> dishVOList=new ArrayList<>();
+            for(Dish d:dishList){
+                DishVO dishVO=new DishVO();
+                BeanUtils.copyProperties(d,dishVO);
+                log.info("用户端：dish:{}",d);
+                List<DishFlavor> dishFlavors=dishFlavorMapper.getByDishId(d.getId());
+                dishVO.setFlavors(dishFlavors);
+                dishVOList.add(dishVO);
+            }
+            return dishVOList;
     }
 }
