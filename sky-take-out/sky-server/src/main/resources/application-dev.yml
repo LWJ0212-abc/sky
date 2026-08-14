@@ -21,3 +21,20 @@ sky:
   wechat:
     appid: wxadf5e0bc3c22b1c5
     secret: da7ae0c7d9ddd2e54f3be5a5ea77c8a9
+  alipay:
+    appid: 2021006179663106
+    # 商户私方私钥（PKCS8格式）
+    merchantPrivateKey: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCNF5PqJsmHfbWKs+AsqqXyGQyiq19RyOt+PFGjvO51lZZ0xe5/LdN7EI4jh+zyTUKAZ4og1eqCHZ60JviHpJiPuK/zK3jxM6z4YbtvJAqYtNAuheYBwo1BQVS8AcnZlep/0LLxEEzx587EjurWNql8BxZLAFfBt8ITaKbVKKwraKN2T/lodH2VyBdLXA2tpr/QhPays1Hgwte38Ke/IhV0K79mGLXo2gEU/rx7RA+BuS3GBhD7LI2+P3fwajhovplFBMS1jEkorqYt/jYM6/lvPIecjx+acWDTGZ5nSi+dHW4UDdUxUp6qk5PyixfPsIgL+3TKBcKzyvXeDvMUlcB7AgMBAAECggEAHqRFOnAMCoHxoFrqT6kL+yUXimh/fgqNok/FRzMr8pt3Hosx/ardJ/fzdqH5grHmxG44IGN016dJJUTlasgDXgs1IzGIxZF8ekD3bO694mY6ZDAuQKmY9dgTZ/VXegrF79ZKVnI807iNPkDvnXAnpMkBPW6ooGihHIf424hGw/JTSTEGcT8SHGmKVBuCh8BjXKoLw4UQ62VTp/kkK89czZLACWjl4TurJSQnAp4iG8pop/mzs6DXcG/qV3ARbZHhfUphhwE9cSwc5PoHpJa4jGHEdeY+bkNlcyXdDRhTmToXuwrD141pBs3Rqz6mwS7AJKFxzdN1XqIeLqtwMrJ1UQKBgQD3QODhS3ptnhYTTWmlC3qU81/vJdcXXBXNJ3ECpbSIoLNM9ydxjQPLTICMKme3qTxvBaE46LN7w9Gqrqyfl3xTI5GdX8fmFid0++jhJo0EYW+TsSoZoYX/iXp/g/nmPC5wZ8y4lyXopER+JGXt2QXAtrh/jlqWUcgZ5rSOLV7cwwKBgQCSFU4Bf9tMm+GYHba37kGfhcJwQbdd2mmcA8t9p/XW/CnoVMYBLWLWtez2zLG9BTXH5lIbqLQL25yka+AUSEmA3v4VaeXn0oXJvIaZQUR6lTbcAO37zQkrraySJTV5dti04S3nhM1kDpFEOhf2QXacwKEuQ1N8fhRBYI/siTSx6QKBgQDmg4olAWWGxRf3rviLcwQ50hzirPi3QpbgyaDGww5pQslnPBV9++ZJp21BQFeqFxHMwAbrM6gB/zJ+WpN9xpGWQVcEzcNkc8sdea5IGtTl/KE1pLqHYtu2vcmDENvvFrSE/4ERp3kkR+HDaNPOx8JhRPkFkwZJlr1jyH8U/p+uWQKBgGFUgomrN2DehztDqOb5fo2boEYM8vA8QpspSB5rlvdrQTzDpr1IEQ9/XOe+0DlhTEjo4xH8oCE6bC58lWrOEvMjH+UCjqSbdnpH+uIHQ2ntGwUQNX/MR2zrpQwmcG+CSLaTRXN43yPoNM9haW+whCfCjGF3iBttIW/Bt4Lgk9RpAoGBANdSsF+FjuCa4qdjQme6kioui0U781Bs56O/mBgQ7rMXZuDVyIVkW0uimCV3HLMm90gr+izeAwWHAclK8yzQB8SDHM152MDKaS6rCINcbmo/+ywamwj9ckYrv3Yu/QA/XS0zufOjAWv/Vxwg6wiJYNrOLjUTCS4LpuA8CgqrcuSY
+    # 支付宝公钥（注意：是支付宝公钥，不是应用公钥）
+    alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmZX9cVgjxJPPXG9sOnRJaA/Hw1UumoTbreNaO74DiRWKQYZm225mDJYkprqagouqGKyAuRQ/bXRdxmn+vNaU+ZFHRLxrrfGln9Q3GxYyeR2K0x73Tf+V25TFDDhWj97/s96P/NGh9whmdBOd0cviU6b9pZ7HlztpxuGMwNJL3Ndx90DvzVltlDEh9GQsp6jf8xtfIr2mTzfNERMErScoGz4hVcg2sS1HsBq58npP5huKRkvMV2LkSgaOXz2C96lWIL4HX/edRpMp0wqri8y9kQGpSeXHL7xhvW/a5OreBn4ISLHrq9Y2DO2cel1Ozr9wkgQxhfapaY6ZwEDZqlwp6QIDAQAB
+    # 签名算法类型 (推荐 RSA2)
+    signType: RSA2
+    # 编码格式
+    charset: UTF-8
+    # 格式
+    format: json
+    # 关键点：沙箱网关地址
+    gatewayUrl: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+    # 支付成功回调地址 (需要外网可访问或使用内网穿透)
+    notifyUrl: http://lwjsky.free.idcfengye.com/notify
+

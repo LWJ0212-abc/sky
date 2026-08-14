@@ -1,0 +1,81 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: sky-mysql
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: mysql_password
+      MYSQL_DATABASE: sky_take_out
+      MYSQL_USER: dbroot
+      MYSQL_PASSWORD: mysql_password
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-time-zone=+08:00
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/lwj/docker/mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - sky-local
+
+  redis:
+    image: redis:latest
+    container_name: sky-redis
+    restart: unless-stopped
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - /home/lwj/docker/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf:ro
+      - /home/lwj/docker/redis/data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a 123456 ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - sky-local
+
+  rustfs_perms:
+    image: alpine:latest
+    container_name: sky-rustfs-perms
+    user: root
+    restart: "no"
+    volumes:
+      - /home/lwj/docker/rustFS:/fix_path
+    command: ["chown", "-R", "10001:10001", "/fix_path"]
+    networks:
+      - sky-local
+
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: sky-rustfs
+    restart: unless-stopped
+    depends_on:
+      rustfs_perms:
+        condition: service_completed_successfully
+    environment:
+      RUSTFS_ADDRESS: :9000
+      RUSTFS_ACCESS_KEY: rustfsadmin
+      RUSTFS_SECRET_KEY: rustfsadmin
+      RUSTFS_CONSOLE_ENABLE: "true"
+    command: ["/data"]
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - /home/lwj/docker/rustFS/data:/data
+      - /home/lwj/docker/rustFS/logs:/logs
+    networks:
+      - sky-local
+
+networks:
+  sky-local:
+    name: sky-local

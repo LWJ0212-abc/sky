@@ -56,3 +56,12 @@ sky:
   wechat:
     appid: ${sky.wechat.appid}
     secret: ${sky.wechat.secret}
+  alipay:
+    appid: ${sky.alipay.appid}
+    merchantPrivateKey: ${sky.alipay.merchantPrivateKey}
+    alipayPublicKey: ${sky.alipay.alipayPublicKey}
+    signType: ${sky.alipay.signType}
+    charset: ${sky.alipay.charset}
+    format: ${sky.alipay.format}
+    gatewayUrl: ${sky.alipay.gatewayUrl}
+    notifyUrl: ${sky.alipay.notifyUrl}

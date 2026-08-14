@@ -18,6 +18,7 @@
         <module>sky-server</module>
     </modules>
     <properties>
+
         <mybatis.spring>2.2.0</mybatis.spring>
         <lombok>1.18.20</lombok>
         <fastjson>1.2.76</fastjson>
@@ -31,6 +32,7 @@
         <jaxb-api>2.3.1</jaxb-api>
         <poi>3.16</poi>
         <s3>2.25.27</s3>
+        <alipay-sdk-java>4.34.0.ALL</alipay-sdk-java>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -46,6 +48,11 @@
                 <version>${lombok}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>${alipay-sdk-java}</version>
+            </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>

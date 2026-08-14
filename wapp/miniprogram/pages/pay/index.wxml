@@ -1,0 +1,122 @@
+<view class="pay-container">
+
+  <!-- ========== 场景一：选择支付方式 ========== -->
+  <view class="choose-section" wx:if="{{step === 'choose'}}">
+    <!-- 金额展示 -->
+    <view class="amount-section">
+      <text class="amount-label">支付金额</text>
+      <text class="amount-value">¥{{orderAmount}}</text>
+    </view>
+    <view class="order-info">
+      <text class="order-label">订单号：{{orderNumber}}</text>
+    </view>
+
+    <!-- 支付方式列表 -->
+    <view class="pay-methods">
+      <text class="section-title">选择支付方式</text>
+
+      <!-- 微信支付 -->
+      <view class="method-item {{payMethod === 1 ? 'selected' : ''}}" bindtap="selectMethod" data-method="{{1}}">
+        <view class="method-icon wx-icon">WX</view>
+        <view class="method-info">
+          <text class="method-name">微信支付</text>
+          <text class="method-desc">微信小程序内支付</text>
+        </view>
+        <view class="method-check {{payMethod === 1 ? 'checked' : ''}}">
+          <text wx:if="{{payMethod === 1}}">✓</text>
+        </view>
+      </view>
+
+      <!-- 支付宝 -->
+      <view class="method-item {{payMethod === 2 ? 'selected' : ''}}" bindtap="selectMethod" data-method="{{2}}">
+        <view class="method-icon alipay-icon">ZFB</view>
+        <view class="method-info">
+          <text class="method-name">支付宝</text>
+          <text class="method-desc">使用支付宝沙箱扫码支付</text>
+        </view>
+        <view class="method-check {{payMethod === 2 ? 'checked' : ''}}">
+          <text wx:if="{{payMethod === 2}}">✓</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 确认支付按钮 -->
+    <view class="btn-section">
+      <button type="primary" bindtap="confirmPay" class="confirm-btn" disabled="{{!payMethod}}">
+        确认支付
+      </button>
+    </view>
+  </view>
+
+  <!-- ========== 场景二：支付宝扫码支付 ========== -->
+  <view class="alipay-section" wx:if="{{step === 'alipay'}}">
+    <view class="method-tag">
+      <text class="tag-icon">ZFB</text>
+      <text>支付宝支付</text>
+    </view>
+
+    <view class="amount-section small">
+      <text class="amount-label">支付金额</text>
+      <text class="amount-value">¥{{orderAmount}}</text>
+    </view>
+    <view class="order-info">
+      <text class="order-label">订单号：{{orderNumber}}</text>
+    </view>
+
+    <!-- 二维码 -->
+    <view class="qr-section" wx:if="{{qrCodeUrl}}">
+      <image
+        src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={{qrCodeUrl}}"
+        mode="widthFix"
+        class="qr-image"
+      />
+      <text class="qr-tip">请使用支付宝沙箱版扫码支付</text>
+      <text class="qr-tip-sub">支付完成后请点击下方按钮</text>
+    </view>
+
+    <view class="qr-loading" wx:if="{{loading}}">
+      <view class="loading-spinner"></view>
+      <text>正在生成支付二维码...</text>
+    </view>
+
+    <view class="qr-error" wx:if="{{errorMsg}}">
+      <text class="error-text">{{errorMsg}}</text>
+      <button type="primary" bindtap="generateQR" class="retry-btn">重新生成</button>
+    </view>
+
+    <view class="btn-section" wx:if="{{qrCodeUrl}}">
+      <button type="primary" bindtap="checkPayStatus" class="pay-btn" loading="{{checking}}">
+        {{checking ? '查询中...' : '我已完成支付'}}
+      </button>
+      <button bindtap="backToChoose" class="back-btn">切换支付方式</button>
+    </view>
+  </view>
+
+  <!-- ========== 场景三：微信支付 ========== -->
+  <view class="wechat-section" wx:if="{{step === 'wechat'}}">
+    <view class="method-tag">
+      <text class="tag-icon wx-tag">WX</text>
+      <text>微信支付</text>
+    </view>
+
+    <view class="amount-section small">
+      <text class="amount-label">支付金额</text>
+      <text class="amount-value">¥{{orderAmount}}</text>
+    </view>
+    <view class="order-info">
+      <text class="order-label">订单号：{{orderNumber}}</text>
+    </view>
+
+    <view class="wechat-pay-info">
+      <text class="wechat-tip">点击下方按钮发起微信支付</text>
+    </view>
+
+    <view class="btn-section">
+      <button type="primary" bindtap="wechatPay" class="confirm-btn wx-pay-btn" loading="{{paying}}">
+        {{paying ? '支付中...' : '微信支付 ¥' + orderAmount}}
+      </button>
+      <button bindtap="backToChoose" class="back-btn">切换支付方式</button>
+    </view>
+  </view>
+
+</view>

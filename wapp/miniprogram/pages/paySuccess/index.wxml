@@ -1,0 +1,27 @@
+<view class="success-container">
+  <!-- 成功图标 -->
+  <view class="icon-section">
+    <image src="/images/icons/success.png" mode="widthFix" class="success-icon" wx:if="{{false}}"/>
+    <view class="success-icon-fallback">✓</view>
+  </view>
+
+  <text class="success-title">支付成功</text>
+
+  <!-- 订单信息 -->
+  <view class="info-card">
+    <view class="info-row">
+      <text class="info-label">订单编号</text>
+      <text class="info-value">{{orderNumber}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">支付金额</text>
+      <text class="info-value amount">¥{{orderAmount}}</text>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="btn-section">
+    <button type="primary" bindtap="goToOrder" class="order-btn">查看订单</button>
+    <button bindtap="goHome" class="home-btn">返回首页</button>
+  </view>
+</view>
