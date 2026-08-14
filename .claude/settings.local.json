@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 *)",
+      "Bash(node --check index.js)",
+      "Bash(node -e ' *)",
+      "Bash(awk 'NR>=325 && NR<=335' index.js)",
+      "Bash(unzip -o mp-weixin.zip \"mp-weixin/pages/pay/index.js\" \"mp-weixin/pages/pay/index.wxml\" \"mp-weixin/pages/pay/index.wxss\")"
+    ]
+  }
+}
