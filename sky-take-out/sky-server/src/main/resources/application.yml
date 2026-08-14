@@ -56,6 +56,7 @@ sky:
   wechat:
     appid: ${sky.wechat.appid}
     secret: ${sky.wechat.secret}
+<<<<<<< HEAD
   alipay:
     appid: ${sky.alipay.appid}
     merchantPrivateKey: ${sky.alipay.merchantPrivateKey}
@@ -65,3 +66,5 @@ sky:
     format: ${sky.alipay.format}
     gatewayUrl: ${sky.alipay.gatewayUrl}
     notifyUrl: ${sky.alipay.notifyUrl}
+=======
+>>>>>>> b9c976c421116e53dc22a6e710dbb89ad3856829

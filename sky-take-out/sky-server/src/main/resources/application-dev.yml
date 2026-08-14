@@ -20,6 +20,7 @@ sky:
     database: 9
   wechat:
     appid: wxadf5e0bc3c22b1c5
+<<<<<<< HEAD
     secret: da7ae0c7d9ddd2e54f3be5a5ea77c8a9
   alipay:
     appid: 2021006179663106
@@ -38,3 +39,6 @@ sky:
     # 支付成功回调地址 (需要外网可访问或使用内网穿透)
     notifyUrl: http://lwjsky.free.idcfengye.com/notify
 
+=======
+    secret: da7ae0c7d9ddd2e54f3be5a5ea77c8a9
+>>>>>>> b9c976c421116e53dc22a6e710dbb89ad3856829
